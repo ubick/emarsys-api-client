@@ -10,5 +10,8 @@ vendor/*
 # PHP Storm
 public/.idea/*
 
+# PHP CS Fixer cache
+.php_cs.cache
+
 # composer.lock is ignored - as this is a library
 composer.lock

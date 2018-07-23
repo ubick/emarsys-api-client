@@ -6,6 +6,8 @@ class ApiContext implements Context
 {
     /**
      * @When I send a GET request to the :arg1 endpoint
+     *
+     * @param mixed $arg1
      */
     public function iSendAGetRequestToTheEndpoint($arg1)
     {
@@ -14,6 +16,8 @@ class ApiContext implements Context
 
     /**
      * @Then The HTTP response code should be :arg1
+     *
+     * @param mixed $arg1
      */
     public function theHttpResponseCodeShouldBe($arg1)
     {
@@ -22,6 +26,8 @@ class ApiContext implements Context
 
     /**
      * @Then the reply code should be :arg1
+     *
+     * @param mixed $arg1
      */
     public function theReplyCodeShouldBe($arg1)
     {
