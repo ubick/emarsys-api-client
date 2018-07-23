@@ -1,44 +1,37 @@
 <?php
 
 use Behat\Behat\Context\Context;
+use Behat\Behat\Tester\Exception\PendingException;
+use Behat\Gherkin\Node\TableNode;
+use Inviqa\Emarsys\Application;
+use Inviqa\Emarsys\EmarsysResponse;
+use Webmozart\Assert\Assert;
 
 class ApiContext implements Context
 {
-    /**
-     * @When I send a GET request to the :arg1 endpoint
-     *
-     * @param mixed $arg1
-     */
-    public function iSendAGetRequestToTheEndpoint($arg1)
+    private $application;
+
+    private $response;
+
+    public function __construct()
     {
-        throw new PendingException();
+        $this->application = new Application();
     }
 
     /**
-     * @Then The HTTP response code should be :arg1
-     *
-     * @param mixed $arg1
+     * @When I retrieve the account settings from the Emarsys API endpoint
      */
-    public function theHttpResponseCodeShouldBe($arg1)
+    public function iRetrieveTheAccountSettingsFromTheEmarsysApiEndpoint()
     {
-        throw new PendingException();
+        $this->response = $this->application->retrieveAccountSettings();
     }
 
     /**
-     * @Then the reply code should be :arg1
-     *
-     * @param mixed $arg1
+     * @Then I should receive the following Emarsys response
      */
-    public function theReplyCodeShouldBe($arg1)
+    public function iShouldReceiveTheFollowingResponse(TableNode $table)
     {
-        throw new PendingException();
-    }
-
-    /**
-     * @Then the response content should contain the following keys:
-     */
-    public function theResponseContentShouldContainTheFollowingKeys(TableNode $table)
-    {
+        Assert::isInstanceOf($this->response, EmarsysResponse::class);
         throw new PendingException();
     }
 }
