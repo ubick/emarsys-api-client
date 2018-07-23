@@ -10,5 +10,6 @@ class Application
 
     public function retrieveAccountSettings()
     {
+        return new EmarsysResponse();
     }
 }
