@@ -33,6 +33,7 @@ class ApiContext implements Context
     {
         Assert::isInstanceOf($this->response, EmarsysResponse::class);
 
+        $responseData = $table->getRowsHash();
         throw new PendingException();
     }
 }
