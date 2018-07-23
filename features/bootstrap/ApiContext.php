@@ -32,6 +32,7 @@ class ApiContext implements Context
     public function iShouldReceiveTheFollowingResponse(TableNode $table)
     {
         Assert::isInstanceOf($this->response, EmarsysResponse::class);
+
         throw new PendingException();
     }
 }

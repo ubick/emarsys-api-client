@@ -6,8 +6,9 @@ class Application
 {
     public function __construct()
     {
-
     }
 
-    public function retrieveAccountSettings() { }
+    public function retrieveAccountSettings()
+    {
+    }
 }
