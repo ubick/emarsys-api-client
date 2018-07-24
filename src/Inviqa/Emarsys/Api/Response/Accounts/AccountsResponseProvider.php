@@ -1,23 +1,21 @@
 <?php
 
-namespace Inviqa\Emarsys\Api;
+namespace Inviqa\Emarsys\Api\Response\Accounts;
 
-use Inviqa\Emarsys\EmarsysResponse;
-
-class EmarsysResponseProvider
+class AccountsResponseProvider
 {
     private const JSON_DECODING_ARRAY_FORMAT = true;
 
     /**
      * @throws \InvalidArgumentException
      */
-    public function provide(string $json): EmarsysResponse
+    public function provide(string $json): AccountsResponse
     {
         $response = json_decode($json, self::JSON_DECODING_ARRAY_FORMAT);
 
         $this->validate($response);
 
-        return new EmarsysResponse(
+        return new AccountsResponse(
             $response['replyCode'],
             $response['replyText'],
             $response['data']
@@ -32,7 +30,7 @@ class EmarsysResponseProvider
     private function validate($response)
     {
         if (!is_array($response)) {
-            throw new \InvalidArgumentException('Cannot instantiate Emarsys Response object due to an empty response body');
+            throw new \InvalidArgumentException('Cannot instantiate Emarsys Accounts Response object due to an empty response body');
         }
 
         $fieldsToValidate = ['replyCode', 'replyText'];
@@ -49,7 +47,7 @@ class EmarsysResponseProvider
     {
         if (!array_key_exists($fieldName, $response)) {
             throw new \InvalidArgumentException(
-                sprintf('Cannot instantiate Emarsys Response object because of the %s is missing from the response', $fieldName)
+                sprintf('Cannot instantiate Emarsys Accounts Response object because of the %s is missing from the response', $fieldName)
             );
         }
     }

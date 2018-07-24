@@ -1,19 +1,18 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client;
+namespace Inviqa\Emarsys\Api\Client\Accounts;
 
 use GuzzleHttp\Client as GuzzleClient;
-use Inviqa\Emarsys\Api\Client;
 
-class EmarsysClient implements Client
+class AccountsClient implements Client
 {
     private $client;
     private $authenticationHeaderProvider;
     private $configuration;
 
     public function __construct(
-        AuthenticationHeaderProvider $authenticationHeaderProvider,
-        EmarsysConfiguration $configuration
+        AccountsAuthenticationHeaderProvider $authenticationHeaderProvider,
+        AccountsConfiguration $configuration
     ) {
         $this->authenticationHeaderProvider = $authenticationHeaderProvider;
         $this->configuration = $configuration;

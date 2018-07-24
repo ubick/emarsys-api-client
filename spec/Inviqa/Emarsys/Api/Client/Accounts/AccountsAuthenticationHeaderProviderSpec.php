@@ -1,15 +1,13 @@
 <?php
 
-namespace spec\Inviqa\Emarsys\Api\Client;
+namespace spec\Inviqa\Emarsys\Api\Client\Accounts;
 
-use Inviqa\Emarsys\Api\Client\AuthenticationHeaderProvider;
-use Inviqa\Emarsys\Api\Client\EmarsysConfiguration;
-use Inviqa\Emarsys\Api\Client\NonceGenerator;
+use Inviqa\Emarsys\Api\Client\Accounts\AccountsConfiguration;
 use phpmock\prophecy\PHPProphet;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class AuthenticationHeaderProviderSpec extends ObjectBehavior
+class AccountsAuthenticationHeaderProviderSpec extends ObjectBehavior
 {
     const GMDATE = '2018-07-23T16:06:53+00:00';
     const RANDOM_BYTES = '010101010';
@@ -19,24 +17,24 @@ class AuthenticationHeaderProviderSpec extends ObjectBehavior
 
     private $nonce;
 
-    function let(EmarsysConfiguration $configuration)
+    function let(AccountsConfiguration $configuration)
     {
         $this->beConstructedWith($configuration);
 
         $prophet = new PHPProphet();
 
-        $gmdateMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client');
+        $gmdateMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client\Accounts');
         $gmdateMock->gmdate('c')->willReturn(self::GMDATE);
         $gmdateMock->reveal();
 
-        $bin2hexMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client');
+        $bin2hexMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client\Accounts');
         $bin2hexMock->bin2hex(Argument::any())->willReturn(self::BIN2HEX);
         $bin2hexMock->reveal();
 
         $this->nonce = self::BIN2HEX;
     }
 
-    function it_builds_an_authentication_header(EmarsysConfiguration $configuration)
+    function it_builds_an_authentication_header(AccountsConfiguration $configuration)
     {
         $configuration->getUsername()->willReturn(self::USER);
         $configuration->getSecret()->willReturn(self::SECRET);

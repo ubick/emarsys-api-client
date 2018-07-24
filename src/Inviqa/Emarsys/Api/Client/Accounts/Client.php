@@ -1,6 +1,6 @@
 <?php
 
-namespace Inviqa\Emarsys\Api;
+namespace Inviqa\Emarsys\Api\Client\Accounts;
 
 interface Client
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Inviqa\Emarsys;
+namespace Inviqa\Emarsys\Api\Response\Accounts;
 
-class EmarsysResponse
+class AccountsResponse
 {
     private $replyCode;
 

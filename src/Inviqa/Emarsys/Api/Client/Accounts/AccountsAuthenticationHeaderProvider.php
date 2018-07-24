@@ -1,12 +1,12 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client;
+namespace Inviqa\Emarsys\Api\Client\Accounts;
 
-class AuthenticationHeaderProvider
+class AccountsAuthenticationHeaderProvider
 {
     private $configuration;
 
-    public function __construct(EmarsysConfiguration $configuration)
+    public function __construct(AccountsConfiguration $configuration)
     {
         $this->configuration = $configuration;
     }

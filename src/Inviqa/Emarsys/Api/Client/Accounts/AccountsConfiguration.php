@@ -1,8 +1,8 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client;
+namespace Inviqa\Emarsys\Api\Client\Accounts;
 
-interface EmarsysConfiguration
+interface AccountsConfiguration
 {
     public function isTestMode(): bool;
 

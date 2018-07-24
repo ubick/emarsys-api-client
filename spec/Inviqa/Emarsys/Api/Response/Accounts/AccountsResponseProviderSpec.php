@@ -1,15 +1,13 @@
 <?php
 
-namespace spec\Inviqa\Emarsys\Api;
+namespace spec\Inviqa\Emarsys\Api\Response\Accounts;
 
-use Inviqa\Emarsys\Api\EmarsysResponseProvider;
-use Inviqa\Emarsys\EmarsysResponse;
+use Inviqa\Emarsys\Api\Response\Accounts\AccountsResponse;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
-class EmarsysResponseProviderSpec extends ObjectBehavior
+class AccountsResponseProviderSpec extends ObjectBehavior
 {
-    function it_should_build_an_emarsys_response_class()
+    function it_should_build_an_accounts_response_class()
     {
         $json = <<< 'EOD'
 {
@@ -25,7 +23,7 @@ class EmarsysResponseProviderSpec extends ObjectBehavior
 }
 EOD;
 
-        $expectedEmarsysResponse = new EmarsysResponse(
+        $expectedAccountResponse = new AccountsResponse(
             '0',
             'OK',
             [
@@ -37,7 +35,7 @@ EOD;
             ]
         );
 
-        $this->provide($json)->shouldBeLike($expectedEmarsysResponse);
+        $this->provide($json)->shouldBeLike($expectedAccountResponse);
     }
 
     function it_should_throw_exception_when_data_is_missing()
@@ -54,7 +52,7 @@ EOD;
   }
 }
 EOD;
-        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Response object because of the replyCode is missing from the response'))->duringProvide($json);
+        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Accounts Response object because of the replyCode is missing from the response'))->duringProvide($json);
 
         $json = <<< 'EOD'
 {
@@ -68,13 +66,13 @@ EOD;
   }
 }
 EOD;
-        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Response object because of the replyText is missing from the response'))->duringProvide($json);
+        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Accounts Response object because of the replyText is missing from the response'))->duringProvide($json);
     }
 
     function it_should_throw_an_exception_when_the_json_cannot_be_decoded()
     {
         $json = "";
 
-        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Response object due to an empty response body'))->duringProvide($json);
+        $this->shouldThrow(new \InvalidArgumentException('Cannot instantiate Emarsys Accounts Response object due to an empty response body'))->duringProvide($json);
     }
 }

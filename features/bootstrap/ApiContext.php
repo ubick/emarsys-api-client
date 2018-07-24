@@ -2,7 +2,7 @@
 
 use Behat\Behat\Context\Context;
 use Inviqa\Emarsys\Application;
-use Inviqa\Emarsys\EmarsysResponse;
+use Inviqa\Emarsys\Api\Response\Accounts\AccountsResponse;
 use Webmozart\Assert\Assert;
 
 class ApiContext implements Context
@@ -10,7 +10,7 @@ class ApiContext implements Context
     private $application;
 
     /**
-     * @var EmarsysResponse
+     * @var AccountsResponse
      */
     private $response;
 
@@ -28,13 +28,31 @@ class ApiContext implements Context
     }
 
     /**
-     * @Then I should receive a successful Emarsys response
+     * @Then I should receive a successful response from the Settings endpoint
      */
     public function iShouldReceiveTheFollowingResponse()
     {
-        Assert::isInstanceOf($this->response, EmarsysResponse::class);
+        Assert::isInstanceOf($this->response, AccountsResponse::class);
 
         Assert::eq($this->response->getReplyCode(), 0);
         Assert::eq($this->response->getReplyText(), 'OK');
+    }
+
+    /**
+     * @When /^I send a CSV file to Emarsys$/
+     */
+    public function iSendACSVFileToEmarsys()
+    {
+        $this->response = $this->application->sendSalesDataViaCSV();
+    }
+
+    /**
+     * @Then /^I should receive a successful response from the Sales endpoint$/
+     */
+    public function iShouldReceiveASuccessfulEmarsysResponse()
+    {
+        Assert::isInstanceOf($this->response, SalesResponse::class);
+
+        Assert::eq($this->response->getReplyCode(), 200);
     }
 }
