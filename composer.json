@@ -25,8 +25,17 @@
   "autoload": {
     "psr-4": {
       "": [
-        "features/bootstrap",
         "src"
+      ]
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "test\\": [
+        "test"
+      ],
+      "": [
+        "features/bootstrap"
       ]
     }
   },

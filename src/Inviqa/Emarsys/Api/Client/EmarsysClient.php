@@ -8,9 +8,15 @@ use Inviqa\Emarsys\Api\Client;
 class EmarsysClient implements Client
 {
     private $client;
+    private $authenticationHeaderProvider;
+    private $configuration;
 
-    public function __construct(EmarsysConfiguration $configuration)
-    {
+    public function __construct(
+        AuthenticationHeaderProvider $authenticationHeaderProvider,
+        EmarsysConfiguration $configuration
+    ) {
+        $this->authenticationHeaderProvider = $authenticationHeaderProvider;
+        $this->configuration = $configuration;
         $this->client = new GuzzleClient([
             'base_uri' => $configuration->getEndpointUrl(),
         ]);
@@ -29,25 +35,7 @@ class EmarsysClient implements Client
     {
         return [
             'Content-type' => 'application/json; charset="utf-8"',
-            'X-WSSE' => $this->getAuthenticationHeader(),
+            'X-WSSE' => $this->authenticationHeaderProvider->providerAuthenticationHeader(),
         ];
-    }
-
-    private function getAuthenticationHeader(): string
-    {
-        $nonce = bin2hex(random_bytes(32));
-        $user = '';
-        $secret = '';
-
-        $timestamp = gmdate('c');
-        $passwordDigest = base64_encode(sha1($nonce . $timestamp . $secret, false));
-
-        return sprintf(
-            'UsernameToken Username="%s", PasswordDigest="%s", Nonce="%s", Created="%s"',
-            $user,
-            $passwordDigest,
-            $nonce,
-            $timestamp
-        );
     }
 }

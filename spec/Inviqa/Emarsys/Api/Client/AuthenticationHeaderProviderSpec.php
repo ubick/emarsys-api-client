@@ -29,12 +29,8 @@ class AuthenticationHeaderProviderSpec extends ObjectBehavior
         $gmdateMock->gmdate('c')->willReturn(self::GMDATE);
         $gmdateMock->reveal();
 
-        $randomBytesMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client');
-        $randomBytesMock->random_bytes(32)->willReturn(self::RANDOM_BYTES);
-        $randomBytesMock->reveal();
-
         $bin2hexMock = $prophet->prophesize('Inviqa\Emarsys\Api\Client');
-        $bin2hexMock->bin2hex(self::RANDOM_BYTES)->willReturn(self::BIN2HEX);
+        $bin2hexMock->bin2hex(Argument::any())->willReturn(self::BIN2HEX);
         $bin2hexMock->reveal();
 
         $this->nonce = self::BIN2HEX;
