@@ -1,8 +1,6 @@
 <?php
 
 use Behat\Behat\Context\Context;
-use Behat\Behat\Tester\Exception\PendingException;
-use Behat\Gherkin\Node\TableNode;
 use Inviqa\Emarsys\Application;
 use Inviqa\Emarsys\EmarsysResponse;
 use Webmozart\Assert\Assert;
@@ -11,6 +9,9 @@ class ApiContext implements Context
 {
     private $application;
 
+    /**
+     * @var EmarsysResponse
+     */
     private $response;
 
     public function __construct()
@@ -27,13 +28,13 @@ class ApiContext implements Context
     }
 
     /**
-     * @Then I should receive the following Emarsys response
+     * @Then I should receive a successful Emarsys response
      */
-    public function iShouldReceiveTheFollowingResponse(TableNode $table)
+    public function iShouldReceiveTheFollowingResponse()
     {
         Assert::isInstanceOf($this->response, EmarsysResponse::class);
 
-        $responseData = $table->getRowsHash();
-        throw new PendingException();
+        Assert::eq($this->response->getReplyCode(), 0);
+        Assert::eq($this->response->getReplyText(), 'OK');
     }
 }
