@@ -1,8 +1,11 @@
 <?php
 
 use Behat\Behat\Context\Context;
+use Inviqa\Emarsys\Api\Response\AccountsResponse;
+use Inviqa\Emarsys\Api\Response\SalesResponse;
 use Inviqa\Emarsys\Application;
-use Inviqa\Emarsys\Api\Response\Accounts\AccountsResponse;
+use Symfony\Component\Yaml\Yaml;
+use test\Inviqa\Emarsys\TestConfiguration;
 use Webmozart\Assert\Assert;
 
 class ApiContext implements Context
@@ -14,9 +17,18 @@ class ApiContext implements Context
      */
     private $response;
 
-    public function __construct()
+    public function __construct(bool $testMode)
     {
-        $this->application = new Application();
+        if ($testMode) {
+            $configuration = new TestConfiguration();
+        } else {
+            $yamlConfig = Yaml::parseFile(__DIR__ . '/../../test/config/integration_config.yml');
+            $yamlConfig['isTestMode'] = false;
+
+            $configuration = new TestConfiguration($yamlConfig);
+        }
+
+        $this->application = new Application($configuration);
     }
 
     /**

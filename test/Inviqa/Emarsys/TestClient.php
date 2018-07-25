@@ -1,0 +1,33 @@
+<?php
+
+namespace test\Inviqa\Emarsys;
+
+use Inviqa\Emarsys\Api\Client;
+use Psr\Http\Message\ResponseInterface;
+
+class TestClient implements Client
+{
+    public function sendCSVContent(string $csvContent): ResponseInterface
+    {
+        // TODO: Implement sendCSVContent() method.
+    }
+
+    public function requestAccountSettings(): string
+    {
+        $json = <<< 'EOD'
+{
+  "replyCode": 0,
+  "replyText": "OK",
+  "data": {
+    "environment": "suite.emarsys.com",
+    "timezone": "America/New_York",
+    "name": "Heimdall",
+    "password_history_queue_size": 3,
+    "country": "United States of America"
+  }
+}
+EOD;
+
+        return $json;
+    }
+}

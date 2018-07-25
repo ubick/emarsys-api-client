@@ -1,17 +1,19 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client\Accounts;
+namespace Inviqa\Emarsys\Api\Client;
 
-class AccountsAuthenticationHeaderProvider
+use Inviqa\Emarsys\Api\Configuration;
+
+class AuthenticationHeaderProvider
 {
     private $configuration;
 
-    public function __construct(AccountsConfiguration $configuration)
+    public function __construct(Configuration $configuration)
     {
         $this->configuration = $configuration;
     }
 
-    public function providerAuthenticationHeader()
+    public function settingsAuthenticationHeader()
     {
         $nonce = bin2hex(random_bytes(32));
         $user = $this->configuration->getUsername();
@@ -26,6 +28,16 @@ class AccountsAuthenticationHeaderProvider
             $passwordDigest,
             $nonce,
             $timestamp
+        );
+    }
+
+    public function salesAuthenticationHeader()
+    {
+        $bearerToken = $this->configuration->getBearerToken();
+
+        return sprintf(
+            'Bearer %s',
+            $bearerToken
         );
     }
 }

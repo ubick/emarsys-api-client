@@ -1,10 +1,12 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client\Sales;
+namespace Inviqa\Emarsys\Api;
 
 use Psr\Http\Message\ResponseInterface;
 
 interface Client
 {
     public function sendCSVContent(string $csvContent): ResponseInterface;
+
+    public function requestAccountSettings(): string;
 }

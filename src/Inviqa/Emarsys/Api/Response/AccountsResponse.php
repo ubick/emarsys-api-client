@@ -1,25 +1,43 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Response\Accounts;
+namespace Inviqa\Emarsys\Api\Response;
 
-class AccountsResponseProvider
+class AccountsResponse
 {
     private const JSON_DECODING_ARRAY_FORMAT = true;
 
-    /**
-     * @throws \InvalidArgumentException
-     */
-    public function provide(string $json): AccountsResponse
+    private $replyCode;
+
+    private $replyText;
+
+    private $data;
+
+    public static function fromJson(string $json): self
     {
+        $instance = new self();
         $response = json_decode($json, self::JSON_DECODING_ARRAY_FORMAT);
+        $instance->validate($response);
 
-        $this->validate($response);
+        $instance->replyCode = $response['replyCode'];
+        $instance->replyText = $response['replyText'];
+        $instance->data = $response['data'];
 
-        return new AccountsResponse(
-            $response['replyCode'],
-            $response['replyText'],
-            $response['data']
-        );
+        return $instance;
+    }
+
+    public function getReplyCode(): string
+    {
+        return $this->replyCode;
+    }
+
+    public function getReplyText(): string
+    {
+        return $this->replyText;
+    }
+
+    public function getJsonEncodedData(): array
+    {
+        return $this->data;
     }
 
     /**
@@ -50,5 +68,9 @@ class AccountsResponseProvider
                 sprintf('Cannot instantiate Emarsys Accounts Response object because of the %s is missing from the response', $fieldName)
             );
         }
+    }
+
+    private function __construct()
+    {
     }
 }

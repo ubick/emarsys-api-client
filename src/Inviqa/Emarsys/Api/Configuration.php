@@ -1,12 +1,18 @@
 <?php
 
-namespace Inviqa\Emarsys\Api\Client\Sales;
+namespace Inviqa\Emarsys\Api;
 
-interface SalesConfiguration
+interface Configuration
 {
     public function isTestMode(): bool;
 
     public function getEndpointUrl(): string;
+
+    public function getSalesEndpointUrl(): string;
+
+    public function getUsername(): string;
+
+    public function getSecret(): string;
 
     public function getBearerToken(): string;
 

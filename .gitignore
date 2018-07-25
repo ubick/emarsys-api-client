@@ -15,3 +15,5 @@ public/.idea/*
 
 # composer.lock is ignored - as this is a library
 composer.lock
+
+test/config/integration_config.yml
