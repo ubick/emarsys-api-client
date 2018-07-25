@@ -55,7 +55,9 @@ class ApiContext implements Context
      */
     public function iSendACSVFileToEmarsys()
     {
-        $this->response = $this->application->sendSalesDataViaCSV();
+        $csvPath = __DIR__ . '/../../test/fixtures/sales.csv';
+
+        $this->response = $this->application->sendSalesDataViaCSV($csvPath);
     }
 
     /**

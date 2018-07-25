@@ -13,8 +13,8 @@ class SalesCsvUploadProvider
         $this->client = $client;
     }
 
-    public function sendCsvContent(string $csvContent): SalesResponse
+    public function sendCsvContent(string $csvFileAbsolutePath): SalesResponse
     {
-        return SalesResponse::fromHttpResponse($this->client->sendCSVContent($csvContent));
+        return SalesResponse::fromHttpResponse($this->client->sendCSVContent($csvFileAbsolutePath));
     }
 }

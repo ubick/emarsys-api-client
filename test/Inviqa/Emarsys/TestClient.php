@@ -7,11 +7,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class TestClient implements Client
 {
-    public function sendCSVContent(string $csvContent): ResponseInterface
-    {
-        // TODO: Implement sendCSVContent() method.
-    }
-
     public function requestAccountSettings(): string
     {
         $json = <<< 'EOD'
@@ -29,5 +24,10 @@ class TestClient implements Client
 EOD;
 
         return $json;
+    }
+
+    public function sendCSVContent(string $csvFileAbsolutePath): ResponseInterface
+    {
+        // TODO: Implement sendCSVContent() method.
     }
 }

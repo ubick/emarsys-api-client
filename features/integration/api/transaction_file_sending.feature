@@ -1,6 +1,6 @@
 @emarsys
 Feature: Ensure transaction CSVs are send to Emarsys via the sales API
-    In order to send the sales transaction files to Emarsys
+    In order to send the sales transactions to Emarsys
     I need to send CSV files to Emarsys via the sales API
 
     Scenario: Sending a transaction file to Emarsys via the Sales API

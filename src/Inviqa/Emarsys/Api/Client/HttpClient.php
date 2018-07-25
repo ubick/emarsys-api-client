@@ -39,15 +39,17 @@ class HttpClient implements Client
         return (string)$response->getBody()->getContents();
     }
 
-    public function sendCSVContent(string $csvContent): ResponseInterface
+    public function sendCSVContent(string $csvFileAbsolutePath): ResponseInterface
     {
+        $body = fopen($csvFileAbsolutePath, 'r');
+
         $response = $this->adminClient->post('api', [
             'headers' => [
                 'Content-type' => 'text/csv',
                 'Accept' => 'text/plain',
                 'Authorization' => $this->authenticationHeaderProvider->salesAuthenticationHeader(),
             ],
-            'body' => \GuzzleHttp\Psr7\stream_for($csvContent),
+            'body' => \GuzzleHttp\Psr7\stream_for($body),
         ]);
 
         return $response;

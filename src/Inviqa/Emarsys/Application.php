@@ -28,10 +28,8 @@ class Application
         return $this->accountSettingsProvider->fetchAccountSettings();
     }
 
-    public function sendSalesDataViaCSV()
+    public function sendSalesDataViaCSV(string $csvFileAbsolutePath)
     {
-        $csvContent = "todo - implement this";
-
-        return $this->salesCsvUploadProvider->sendCsvContent($csvContent);
+        return $this->salesCsvUploadProvider->sendCsvContent($csvFileAbsolutePath);
     }
 }
